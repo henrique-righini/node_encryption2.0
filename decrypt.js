@@ -6,11 +6,32 @@ var fs = require('fs');
  
    app.use(bodyParser.json());
    app.post("/login", function(request, response) {
-       console.log(request.body.user);
-       console.log(request.body.pass);
+       //console.log(request.body.user);
+       //console.log(request.body.pass);
+      
+    privateKey = fs.readFileSync('priv.key').toString();
+
+    let user = new Buffer(request.body.user, 'base64');
     
-    //privateKey = fs.readFileSync('priv.key').toString();
-//const decryptedData = crypto.privateDecrypt(privateKey, request.body)
+    const decryptedUser = crypto.privateDecrypt(
+        {
+		key: privateKey,
+		padding: crypto.constants.RSA_PKCS1_OAEP_mgf1,
+		oaepHash: "sha256",
+	    },
+        user
+    );
+
+    console.log(user.toString('utf-8'));
+
+
+
+    let pass = Buffer.from(request.body.pass, 'utf-8');
+    console.log(pass.toString('utf-8'));
+    const decryptedPassword = crypto.privateDecrypt(privateKey, pass)
+
+    
+
 });
 
 //Start the server and make it listen for connections on port 8080
