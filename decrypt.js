@@ -1,23 +1,40 @@
 var express = require("express");
-var myParser = require("body-parser");
+var bodyParser = require("body-parser");
 var app = express();
 var crypto = require("crypto");
+var fs = require('fs'); 
  
-   app.use(myParser.urlencoded({extended : true}));
-   app.post("/login", function(request, response) {
 
-    const decryptedData = crypto.privateDecrypt(
-	{
+   app.use(bodyParser.json());
+   app.post("/login", function(request, response) {
+       //console.log(request.body.user);
+       //console.log(request.body.pass);
+      
+    privateKeyTxt = fs.readFileSync('priv.key').toString();
+    privateKey = create.privateKey(privateKeyTxt);
+    console.log(privateKey);
+
+    let user = new Buffer(request.body.user, 'base64');
+    
+    const decryptedUser = crypto.privateDecrypt(
+        {
 		key: privateKey,
-		// In order to decrypt the data, we need to specify the
-		// same hashing function and padding scheme that we used to
-		// encrypt the data in the previous step
-		padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
+		padding: crypto.constants.RSA_PKCS1_OAEP_mgf1,
 		oaepHash: "sha256",
-	},
-	request.body
-)
-       //console.log(request.body); //This prints the JSON document received (if it is a JSON document)
+	    },
+        user
+    );
+
+    console.log(user.toString('utf-8'));
+
+
+
+    let pass = Buffer.from(request.body.pass, 'utf-8');
+    console.log(pass.toString('utf-8'));
+    const decryptedPassword = crypto.privateDecrypt(privateKey, pass)
+
+    
+
 });
 
 //Start the server and make it listen for connections on port 8080
