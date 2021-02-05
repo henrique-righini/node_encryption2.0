@@ -1,11 +1,17 @@
 {
-  "requires": true,
-  "lockfileVersion": 1,
+  "name": "crypt-poc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "decrypt.js",
+  "scripts": {
+    "start": "node decrypt.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "Express": {
-      "version": "3.0.1",
-      "resolved": "https://registry.npmjs.org/Express/-/Express-3.0.1.tgz",
-      "integrity": "sha1-5k73yzdoSmn8ItQRHd3kSYiWSWo="
-    }
+    "Express": "^3.0.1",
+    "crypto": "^1.0.1",
+    "express": "^4.17.1"
   }
 }
