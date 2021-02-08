@@ -28,11 +28,9 @@ var fs = require('fs');
 
     let pass = Buffer.from(request.body.pass, 'utf-8');
     console.log(pass.toString('utf-8'));
-    const decryptedPassword = crypto.privateDecrypt(privateKey, pass)
+    const decryptedPassword = crypto.privateDecrypt(privateKey, pass);
 
-    
+    });
 
-});
-
-//Start the server and make it listen for connections on port 8080
-app.listen(8080);
+    app.listen(8080);
+    console.log('funciona');
