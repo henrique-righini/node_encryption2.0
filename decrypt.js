@@ -22,7 +22,7 @@ var fs = require('fs');
         user
     );
 
-    console.log(user.toString('utf-8'));
+    //console.log(user.toString('utf-8'));
 
 
 
@@ -33,4 +33,4 @@ var fs = require('fs');
     });
 
     app.listen(8080);
-    console.log('funciona');
+    //console.log('funciona');
