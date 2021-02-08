@@ -12,8 +12,9 @@ var fs = require('fs');
       
     privateKeyTxt = fs.readFileSync('priv.key').toString();
     privateKey = create.privateKey(privateKeyTxt);
+    //conferir objeto de chave privada
     console.log(privateKey);
-
+    
     let user = new Buffer(request.body.user, 'base64');
     
     const decryptedUser = crypto.privateDecrypt(
