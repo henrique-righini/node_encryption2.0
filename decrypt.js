@@ -37,4 +37,4 @@ var fs = require('fs');
 });
 
 //Start the server and make it listen for connections on port 8080
-app.listen(8080)
+app.listen(8080);
