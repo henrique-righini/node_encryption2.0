@@ -13,6 +13,7 @@ var fs = require('fs');
         //chave deve ser guardada em local seguro
 
         let user = new Buffer.from(request.body.user, 'base64');
+        //input para descriptografar deve ser do tipo Buffer
     
         const decryptedUser = crypto.privateDecrypt(
             {
