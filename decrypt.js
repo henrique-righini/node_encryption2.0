@@ -7,27 +7,30 @@ var fs = require('fs');
 
     app.use(bodyParser.json());
     app.post("/login", function(request, response) {
-       //console.log(request.body.user);
-       //console.log(request.body.pass);
+      // console.log(request.body.user);
+      // console.log(request.body.pass);
       
     privateKeyTxt = fs.readFileSync('priv.key').toString();
-    privateKey = create.privateKey(privateKeyTxt);
+    privateKey = crypto.createPrivateKey(privateKeyTxt);
     //conferir objeto de chave privada
-    console.log(privateKey);
+    //console.log(privateKey);
    
-    let user = new Buffer(request.body.user, 'base64');
+    let user = new Buffer.from(request.body.user, 'base64');
+    
+    console.log(user);
     
     const decryptedUser = crypto.privateDecrypt(
         {
 		key: privateKey,
-		padding: crypto.constants.RSA_PKCS1_OAEP_mgf1,
-		oaepHash: "sha256",
+		padding: crypto.constants.RSA_PKCS1_PADDING,
+		//oaepHash: "sha1",
 	    },
         user
     );
+        console.log(user.toString);
 
     let pass = Buffer.from(request.body.pass, 'utf-8');
-    console.log(pass.toString('utf-8'));
+   // console.log(pass.toString('utf-8'));
     const decryptedPassword = crypto.privateDecrypt(privateKey, pass);
 
     });
