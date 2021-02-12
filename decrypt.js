@@ -1,44 +1,52 @@
-var express = require("express");
-var cors = require('cors');
-var bodyParser = require("body-parser");
-var app = express();
-var crypto = require("crypto");
-var fs = require('fs'); 
+const express = require("express");
+const {validate} = require("express-validator")
+const bodyParser = require("body-parser");
+const app = express();
+const crypto = require("crypto");
+const fs = require('fs'); 
 
-    app.use(cors());
-    //adicionado sem configuração alguma apenas para fins de PoC
+
     app.use(bodyParser.json());
     app.post("/login", function(request, response) {
 
-      
+        console.log(request.body);
+        validate.('login').escape();
+        console.log(request.body);
+        
         privateKey = fs.readFileSync('priv.key').toString();
         //chave deve ser guardada em local seguro
 
-        let login = new Buffer.from(request.body.login, 'base64');
+        let user = new Buffer.from(request.body.user, 'base64');
         //input para descriptografar deve ser do tipo Buffer
-        //console.log(login)
+    
         const decryptedUser = crypto.privateDecrypt(
             {
 		    key: privateKey,
 		    padding: crypto.constants.RSA_PKCS1_PADDING,
 	        },
-            login
+            user
         );
         
-        var obj = JSON.parse(decryptedUser);
-         console.log(obj);
-         response.json(obj);
+
+
+        let pass = Buffer.from(request.body.pass, 'base64');
+
+        const decryptedPassword = crypto.privateDecrypt(
+            {
+            key: privateKey,
+            padding: crypto.constants.RSA_PKCS1_PADDING, 
+            },
+            pass
+        );
+
+
+
+        user = decryptedUser.toString();
+        pass = decryptedPassword.toString();
+
+        response.json({usernameDecrypted : user, passDecrypted : pass});
     
     });
 
-    app.post("/debugger", function(request, response) {
 
-        let debug = request.body.login;
-
-        response.json(JSON.stringify("esta aplicacao esta sendo debugada" , debug) );
-        
-        console.log("debugger");
-    });
-
-
-    app.listen(8090);
+    app.listen(8080);
