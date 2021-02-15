@@ -12,6 +12,8 @@ const fs = require('fs');
         '/login',  
         body('login').blacklist('!@#$%^&*(){}[]/?<>"'),
         //descobrir como fazer blacklist pois .escape() quebra a criptografia
+
+        
         function(request, response) {
 
         console.log(request.body);
