@@ -10,7 +10,7 @@ const fs = require('fs');
     app.use(express.json());
     app.post(
         '/login',  
-        //body('login').escape(),
+        body('login').blacklist('!@#$%^&*(){}[]/?<>"'),
         //descobrir como fazer blacklist pois .escape() quebra a criptografia
         function(request, response) {
 
