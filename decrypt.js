@@ -3,8 +3,9 @@ var bodyParser = require("body-parser");
 var app = express();
 var crypto = require("crypto");
 var fs = require('fs'); 
+var cors = require('cors');
 
-
+    app.use(cors());
     app.use(bodyParser.json());
     app.post("/login", function(request, response) {
 
@@ -45,4 +46,5 @@ var fs = require('fs');
     });
 
 
-    app.listen(8080);
+    app.listen(8090);
+    console.log("listening on port 8090")

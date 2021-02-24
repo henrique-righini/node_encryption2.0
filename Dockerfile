@@ -1,6 +1,7 @@
-FROM node:latest
+FROM node:14-alpine AS crypto
 
+WORKDIR /src
 
+RUN npm install
 
-CMD ["npm", "ci"]
-
+EXPOSE 8090
