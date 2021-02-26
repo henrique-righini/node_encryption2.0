@@ -6,12 +6,13 @@ const app = express();
 const crypto = require('crypto');
 const fs = require('fs'); 
 
+
     app.use(cors());
+    app.options('*', cors());
     app.use(express.json());
     app.post(
         '/login',  
-        body('login').blacklist('!@#$%^&*(){}[]/?<>"'),
-        //descobrir como fazer blacklist pois .escape() quebra a criptografia
+ 
         function(request, response) {
 
         console.log(request.body);
@@ -45,4 +46,12 @@ const fs = require('fs');
         console.log('debugger');
     });
 
-    app.listen(8080);
+    app.get('/crypto', function(request, response) {
+        response.writeHead(200, { 'content-type': 'text/html' })
+        fs.createReadStream('front.html').pipe(response)
+        
+        console.log('get');
+    });
+
+    app.listen(8090);
+    console.log("rodando");

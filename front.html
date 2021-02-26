@@ -1,0 +1,90 @@
+<!doctype html>
+
+<!-- 
+PoC Berghem para criptografia de front usuário e senha
+-->
+
+
+<html>
+  <head>
+    <title>JavaScript RSA Encryption</title>
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/2.3.1/jsencrypt.min.js"></script>
+    <script type="text/javascript">
+      
+      $(function() {
+
+        $('#testme').click(function() {
+
+          //generate private key
+
+
+
+
+
+          var encrypt = new JSEncrypt();
+          encrypt.setPublicKey($('#pubkey').val());
+          
+          //var encrypted_user = encrypt.encrypt($('#input_user').val());
+          //var encrypted_pass = encrypt.encrypt($('#input_pass').val());
+
+          var encrypted_user = $('#input_user').val();
+          var encrypted_pass = $('#input_pass').val();
+
+          encryptlinha = { "login": encrypted_user , "pass": encrypted_pass, "random": Math.random()};
+          console.log(JSON.stringify(encryptlinha));
+          encryptlinha1 = encrypt.encrypt(JSON.stringify(encryptlinha))
+          console.log(encryptlinha1);
+          // console.log(encrypted_pass);
+
+          //$("#input_user").val(encrypted_user);
+          //$("#input_pass").val(encrypted_pass);
+
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", "http://localhost:8090/login", false);
+          xhr.setRequestHeader('Content-Type', 'application/json');
+          xhr.send(JSON.stringify({ "login": encryptlinha1 }))
+
+          });
+
+      });
+
+      //detect debug browser
+
+      let div = document.createElement('div');
+      let loop = setInterval(() => {
+          console.log(div);
+          console.clear();
+      });
+      Object.defineProperty(div, "id", {get: () => { 
+          clearInterval(loop);
+          alert("Dev Tools detected!");
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", "http://localhost:8090/debugger", false);
+          xhr.setRequestHeader('Content-Type', 'application/json');
+          xhr.send(JSON.stringify({ "debug": true }))
+      }});
+
+    </script>
+  </head>
+  <body>
+
+    <input id="pubkey" type="hidden" value=" 
+    -----BEGIN PUBLIC KEY-----
+    MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDlOJu6TyygqxfWT7eLtGDwajtN
+    FOb9I5XRb6khyfD1Yt3YiCgQWMNW649887VGJiGr/L5i2osbl8C9+WJTeucF+S76
+    xFxdU6jE0NQ+Z+zEdhUTooNRaY5nZiu5PgDB0ED/ZKBUSLKL7eibMxZtMlUDHjm4
+    gwQco1KRMDSmXSMkDwIDAQAB 
+    -----END PUBLIC KEY-----">
+
+    <label for="input">User and Pass Encrypt:</label><br/>
+
+    <!-- <form id="form_enc" action="http://127.0.0.1:8090">  -->
+        <label for="uname"><b>Username</b></label></div>
+        <input id="input_user" type="text" placeholder="Enter Username" name="uname" required></br>
+        <label for="psw"><b>Password</b></label></br>
+        <input id="input_pass"type="password" placeholder="Enter Password" name="psw" required></br>
+        <button id="testme" type="submit">Login</button>
+    <!-- </form> -->
+  </body>
+</html>
