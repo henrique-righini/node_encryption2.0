@@ -50,8 +50,7 @@ const fs = require('fs');
         response.writeHead(200, { 'content-type': 'text/html' })
         fs.createReadStream('front.html').pipe(response)
         
-        console.log('get');
     });
 
     app.listen(8090);
-    console.log("rodando");
+    console.log("fala que eu te escuto");
