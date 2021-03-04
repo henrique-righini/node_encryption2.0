@@ -41,7 +41,7 @@ PoC Berghem para criptografia de front usuário e senha
           //$("#input_pass").val(encrypted_pass);
 
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", "http://localhost:8090/login", false);
+          xhr.open("POST", "http://localhost:8080/login", false);
           xhr.setRequestHeader('Content-Type', 'application/json');
           xhr.send(JSON.stringify({ "login": encryptlinha1 }))
 
@@ -60,7 +60,7 @@ PoC Berghem para criptografia de front usuário e senha
           clearInterval(loop);
           alert("Dev Tools detected!");
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", "http://localhost:8090/debugger", false);
+          xhr.open("POST", "http://localhost:8080/debugger", false);
           xhr.setRequestHeader('Content-Type', 'application/json');
           xhr.send(JSON.stringify({ "debug": true }))
       }});

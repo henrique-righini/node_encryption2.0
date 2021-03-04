@@ -52,5 +52,5 @@ const fs = require('fs');
         
     });
 
-    app.listen(8090);
+    app.listen(8080);
     console.log("fala que eu te escuto");
