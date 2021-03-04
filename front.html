@@ -20,8 +20,6 @@ PoC Berghem para criptografia de front usuário e senha
 
 
 
-
-
           var encrypt = new JSEncrypt();
           encrypt.setPublicKey($('#pubkey').val());
           
@@ -31,7 +29,7 @@ PoC Berghem para criptografia de front usuário e senha
           var encrypted_user = $('#input_user').val();
           var encrypted_pass = $('#input_pass').val();
 
-          encryptlinha = { "login": encrypted_user , "pass": encrypted_pass,};// "random": Math.random()};
+          encryptlinha = { "login": encrypted_user , "pass": encrypted_pass, "random": Math.random()};
           console.log(JSON.stringify(encryptlinha));
           encryptlinha1 = encrypt.encrypt(JSON.stringify(encryptlinha))
           console.log(encryptlinha1);
@@ -41,7 +39,7 @@ PoC Berghem para criptografia de front usuário e senha
           //$("#input_pass").val(encrypted_pass);
 
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", "http://localhost:8080/login", false);
+          xhr.open("POST", "https://8080-crimson-giraffe-txpgfcng.ws-us03.gitpod.io/login", false);
           xhr.setRequestHeader('Content-Type', 'application/json');
           xhr.send(JSON.stringify({ "login": encryptlinha1 }))
 
@@ -60,7 +58,7 @@ PoC Berghem para criptografia de front usuário e senha
           clearInterval(loop);
           alert("Dev Tools detected!");
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", "http://localhost:8080/debugger", false);
+          xhr.open("POST", "https://8080-crimson-giraffe-txpgfcng.ws-us03.gitpod.io/debugger", false);
           xhr.setRequestHeader('Content-Type', 'application/json');
           xhr.send(JSON.stringify({ "debug": true }))
       }});

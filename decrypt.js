@@ -46,7 +46,7 @@ const fs = require('fs');
         console.log('debugger');
     });
 
-    app.get('/crypto', function(request, response) {
+    app.get('/', function(request, response) {
         response.writeHead(200, { 'content-type': 'text/html' })
         fs.createReadStream('front.html').pipe(response)
         
