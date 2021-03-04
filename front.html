@@ -29,7 +29,7 @@ PoC Berghem para criptografia de front usuário e senha
           var encrypted_user = $('#input_user').val();
           var encrypted_pass = $('#input_pass').val();
 
-          encryptlinha = { "login": encrypted_user , "pass": encrypted_pass, "random": Math.random()};
+          encryptlinha = { "login": encrypted_user , "pass": encrypted_pass}//, "random": Math.random()};
           console.log(JSON.stringify(encryptlinha));
           encryptlinha1 = encrypt.encrypt(JSON.stringify(encryptlinha))
           console.log(encryptlinha1);
